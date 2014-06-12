@@ -1,0 +1,265 @@
+<!doctype HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>mute filter generator</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!--<link rel="stylesheet" href="/assets/reset.css">
+    <link rel="stylesheet" href="/assets/app.css">-->
+    <style type="text/css">
+    /* Din will shoot me for that inline CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #222;
+    }
+    h1 {
+      color: #000;
+    }
+    .regexView {
+      padding: 20px;
+      background: #888;
+      display: block;
+      color: #FFF;
+      font-family: Source Code Pro, monospace, Helvetica, Arial, sans-serif;
+    }
+    .linkView {
+      display: block;
+    }
+    .b-muteList {
+      list-style: none;
+      width: 550px;
+      margin: 20px auto 0;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .b-m-item {
+      margin: 8px;
+      padding: 10px;
+      border: 1px solid #eee;
+      background: #f6f6f6;
+      cursor: pointer;
+      text-align: center;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .b-m-item:hover {
+      background: #eee;
+    }
+
+    .b-m-item.active {
+      background: #eee;
+      border: 1px solid #aaa;
+    }
+
+    </style>
+  </head>
+  <body>
+    <span class="regexView"></span>
+    <span class="regexLink"></span>
+    <ul class="b-muteList">
+    </ul>
+    <script>
+
+    var $ = function(callback){
+        return function(params) {
+          if(typeof params !== 'undefined') {
+            var res = callback.call(document, params);
+            if(res.length === 0) return {error: true};
+            if(res.length === 1) return res[0];
+            return res;
+          }
+        }
+      }(document.querySelectorAll);// oh wow lovely - cassie ainsworth #skinsUK
+    window.$ = $;
+
+    var runApp = function runApp() {
+      var app = {};
+      var $list, $regexView, $regexLink;
+
+      app.currentRegex = '';
+
+      app.currentPos = 0;
+      app.oldPos = 0;
+      app.lastClickWasSelect = false;
+
+      app.activeWords = [];
+
+      app.config = {
+        jsonFile: './muteFilters.json',
+        filtersList: '.b-muteList',
+        item: '.b-m-item',
+        activeClass: 'active',
+        regexView: '.regexView',
+        regexLink: '.regexLink',
+        tweetBotLink: 'tweetbot:///mute/keyword?regex=1&text='
+      };
+
+      app.events = {
+        create: function(name, value) {
+          var event = new CustomEvent(name, {
+            detail: {
+              data: value,
+              time: new Date()
+            },
+            bubbles: true,
+            cancelable: true
+          });
+
+          document.dispatchEvent(event);
+          return event;
+        },
+        listen: function(name, cb) {
+          document.addEventListener(name, cb, false);
+        }
+      };
+
+      app.createList = function(d) {
+        console.log('create list');
+        var arr = d.detail.data;
+        console.log($list);
+        var el;
+        for(var i = 0; arr.length > i; i++) {
+          console.log(arr[i], i);
+          el = document.createElement('li');
+          el.setAttribute('class', 'b-m-item tp-' + i);
+          el.setAttribute('data-pos', i); // yup
+          el.innerHTML = arr[i];
+          el.addEventListener('click', app.toggleSelect);
+          $list.appendChild(el);
+        }
+      };
+
+      app.updateRegex = function() {
+        app.currentRegex = '(?i)(' + app.activeWords.join('|') + ')';
+        $regexView.innerText = app.currentRegex;
+        var uri = app.config.tweetBotLink + encodeURIComponent(app.currentRegex);
+        $regexLink.innerHTML = '<a href="' + uri + '">' + uri + '</a>';
+      };
+
+      app.addClass = function(el) {
+        return function(className) {
+          el.setAttribute('class', el.getAttribute('class') + ' ' + className);
+          app.activeWords.push(el.innerHTML);
+          app.updateRegex();
+        };
+      };
+
+      app.removeClass = function(el) {
+        return function(className) {
+          var currentClass = el.getAttribute('class');
+          el.setAttribute('class', currentClass.replace(className, ''));
+          app.activeWords.splice(app.activeWords.indexOf(el.innerHTML), 1);
+          app.updateRegex();
+        };
+      };
+
+      app.toggleSelect = function(e) {
+
+        //var isSelected = e.target.classList.indexOf(app.config.activeClass);
+        var isSelected = (e.target.className.split(/ /).indexOf('active') !== -1);
+        var shiftHolded = e.shiftKey;
+        //var ctrlHolded = e.ctrlKey; // we dont use it since toggeling
+        var itemPos = e.target.dataset.pos;
+        app.currentPos = itemPos;
+
+        console.log(itemPos, isSelected);
+
+        if(!isSelected) {
+          app.addClass(e.target)('active');
+
+          if(shiftHolded && app.lastClickWasSelect) {
+            console.log('shifted and last action was select', itemPos, app.oldPos);
+            var start = (itemPos > app.oldPos) ? app.oldPos : itemPos;
+            var end = (itemPos > app.oldPos) ? itemPos : app.oldPos;
+
+            console.log('start, end: ', start, end);
+            for (var i = start; end > i; i++) {
+              console.log('hi ',i,  start, end);
+              app.addClass($('.tp-' + i))('active');
+            }
+          }
+          app.lastClickWasSelect = true;
+        } else {
+
+           app.removeClass(e.target)('active');
+           app.lastClickWasSelect = false;
+        }
+
+        app.oldPos = itemPos;
+
+      }
+
+      app.initEvents = function() {
+        app.events.listen('listDataLoaded', app.createList);
+      };
+
+      app.helpers = {
+        getJSON: function(uri, cb, method) {
+          if(typeof method === 'undefined') method = 'GET'
+          if(typeof uri === 'undefined') return alert('ENTER A URL!!!'); // everyone hates alerts <3
+
+          request = new XMLHttpRequest(); //  FUCK OLD BROWSERS
+          request.open(method, uri, true);
+          request.onload = function() {
+            if (request.status >= 200 && request.status < 400){
+              var jason = JSON.parse(request.responseText); // who is jason?
+              if(typeof cb === 'function') cb(JSON.parse(request.responseText));
+              //return json; // some people would really do this #async
+            } else {
+              console.error('getJSON failed: ', request);
+            }
+          };
+
+          request.onerror = function() {
+            console.error('request error: ', request);
+          };
+          request.send();
+          return false;
+        }
+
+      };
+
+      app.initialize = function initialize() {
+        // cache elements
+        $list = $(app.config.filtersList);
+        $regexView = $(app.config.regexView);
+        $regexLink = $(app.config.regexLink);
+
+        app.initEvents();
+
+        app.helpers.getJSON(app.config.jsonFile, function(data) {
+          app.events.create('listDataLoaded', data.keywords);
+        });
+
+        return app;
+      }(); // :o
+
+      return app.initialize;
+    };
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+    window.app = runApp();
+    });
+    // not the best code, just quickly hacked
+    </script>
+  </body>
+</html>
