@@ -1,4 +1,4 @@
-* [Mute 'WM'](tweetbot:///mute/keyword?text=1&text=WM)
+* [Mute 'WM'](tweetbot://mute/keyword?text=1&text=WM)
 
 
 
