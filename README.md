@@ -8,3 +8,8 @@ For all those people, who are annoyed about all the football related Tweets in t
 
 Contribute on this GitHub repo to mute even more WC related Tweets! Thanks for your support in advance, outb0x.
 
+## About Tweetbot
+
+This repo is not affiliated with the developers of Tweetbot. 
+Tweetbot is a cross-platform app of Tapbots, LLC.
+
