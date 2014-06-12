@@ -16,6 +16,14 @@ Unfortunately this is the only solution which seems to work. Otherwise the Tweet
 
 Sorry about that - but I think it's still much better than having tons of World Cup related Tweets in your timeline.
 
+## How to import to Tweetdeck
+
+Developers are lazy, so this small script helps you, adding all those keywords to Tweetdeck.
+You just have to open the mute-window, press Ctrl-Shift-J, paste the code from tweetdeckAuto.min.js and press Enter.
+You may get some errors in Firefox, that a script is not responding, do not cancel the execution of the script, just give it some time.
+
+Works fine for me in Chromium and Firefox.
+
 ## Contribute
 
 Contribute on this GitHub repo to mute even more World Cup related Tweets!               
