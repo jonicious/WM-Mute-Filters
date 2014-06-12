@@ -1,3 +1,8 @@
+* [Mute 'WM'](tweetbot:///mute/keyword?text=1&text=WM)
+
+
+
+
 tweetbot:///mute/keyword?text=1&text=WM\
 tweetbot:///mute/keyword?text=1&text= FIFA World Cup\
 tweetbot:///mute/keyword?text=1&text=FIFA\
