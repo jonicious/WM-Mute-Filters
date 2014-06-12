@@ -1,6 +1,10 @@
 var data  = {
 	"keywords": [
 		"WM",
+		"WorldCup2014", 
+		"WC2014", 
+		"WorldCup", 
+		"WC",
 		"FIFA World Cup",
 		"FIFA",
 		"aneurerseite",
