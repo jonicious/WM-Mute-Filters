@@ -1,3 +1,7 @@
+tweetbot:///mute/keyword?text=1&text=WorldCup2014\
+tweetbot:///mute/keyword?text=1&text=WC2014\
+tweetbot:///mute/keyword?text=1&text=WorldCup\
+tweetbot:///mute/keyword?text=1&text=WC\
 tweetbot:///mute/keyword?text=1&text=WM\
 tweetbot:///mute/keyword?text=1&text= FIFA World Cup\
 tweetbot:///mute/keyword?text=1&text=FIFA\
