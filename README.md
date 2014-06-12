@@ -4,13 +4,13 @@
 
 For all those people, who are annoyed about all the football related Tweets in their timeline, here's a list containing mute filters for the world-cup in Brazil for the very well-known Twitter client Tweetbot.
 
-## Import to Tweetbot app on iOS 
+## How to import to Tweetbot app on iOS 
 
 1. Copy the whole content of the *.txt file to the clipboard of your iOS device
 2. Send an email containing the whole clipboard content to your personal inbox 
-3. Open the email with the Mail.app on iOS (default mail client on iOS)
-4. Click on each link and add the mute filter to Tweetbot
-5. Done!
+3. Open the previously sent email with the Mail.app on iOS (default mail client on iOS)
+4. Click on each link ('tweetbot:///[...]') and add the mute filters to Tweetbot. Repeat this step for all links.
+5. Uff, finally done!
 
 Unfortunately this is the only solution which seems to work. Otherwise the Tweetbot links - which should automatically open the "Add new mute filter" part within Tweetbot - won't be recognized. 
 
