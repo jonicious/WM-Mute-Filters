@@ -1,4 +1,4 @@
 WM-Mute-Filters
 ===============
 
-WM 2014 Mute Filters for Tweetbot
+Manche mögen keinen Fußball oder die WM. Diejenigen laden sich einfach Tweetbot und klicken auf die Links und die Keywords werden dauerhaft gemutet.
