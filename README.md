@@ -1,5 +1,4 @@
 # Tweetbot-WorldCup-Mute-Filters
-===============
 
 ## Purpose
 
