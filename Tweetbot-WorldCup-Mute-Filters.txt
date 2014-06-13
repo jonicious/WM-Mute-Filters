@@ -38,6 +38,8 @@ tweetbot:///mute/keyword?text=1&text=Gruppenphase
 
 tweetbot:///mute/keyword?text=1&text=Gruppe
 
+tweetbot:///mute/keyword?text=1&text=robben
+
 tweetbot:///mute/keyword?text=1&text=#flagge
 
 tweetbot:///mute/keyword?text=1&text=#ALG
