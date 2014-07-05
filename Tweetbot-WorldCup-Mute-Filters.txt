@@ -38,6 +38,12 @@ tweetbot:///mute/keyword?text=1&text=Gruppenphase
 
 tweetbot:///mute/keyword?text=1&text=Gruppe
 
+tweetbot:///mute/keyword?text=1&text=Bundestrainer
+
+tweetbot:///mute/keyword?text=1&text=Sieger der Herzen
+
+tweetbot:///mute/keyword?text=1&text=Löw
+
 tweetbot:///mute/keyword?text=1&text=robben
 
 tweetbot:///mute/keyword?text=1&text=#flagge
