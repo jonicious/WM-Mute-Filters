@@ -1,9 +1,9 @@
 var data  = {
 	"keywords": [
 		"WM",
-		"WorldCup2014", 
-		"WC2014", 
-		"WorldCup", 
+		"WorldCup2014",
+		"WC2014",
+		"WorldCup",
 		"WC",
 		"FIFA World Cup",
 		"FIFA",
@@ -20,6 +20,9 @@ var data  = {
 		"Achtelfinale",
 		"Gruppenphase",
 		"Gruppe",
+		"Bundestrainer",
+		"Sieger der Herzen",
+		"Löw",
 		"robben",
 		"#flagge",
 		"#ALG",
